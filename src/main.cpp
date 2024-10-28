@@ -24,7 +24,9 @@ Serial.println("Connected to WiFi.");
 
 //create tasks and suspend the tasks for now
 xTaskCreatePinnedToCore(readSensor,"Read", 2048, NULL, 1, &reading, 0);
+vTaskSuspend(reading);
 xTaskCreatePinnedToCore(publishReading, "Publish", 4096, NULL, 1, &publish,0);
+vTaskSuspend(publish);
 
 }
 
@@ -32,6 +34,8 @@ void loop() {
   //connect client to MQTT
   if (!client.connected())
     reconnect();
-  vTaskResume(NULL);
+  vTaskResume(reading);
+  vTaskResume(publish);
+  vTaskDelete(NULL);
 }
 
