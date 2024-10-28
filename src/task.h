@@ -8,16 +8,26 @@ TaskHandle_t publish;
 //create photoresistor sensor variables
 int sensPin = 34;
 int light;
+//int counter =1;
 
 //set up tasks(a: Reading sensor value, b: Publishing sensor value to MQTT)
 void readSensor(void* parameter)
 {
   while(1)
   {
+    
+    /* reset root cause
+    if (counter == 1)
+    {
+        vTaskResume(publish);
+        counter++;
+    }
+    */
     light =  analogRead(sensPin);
     vTaskDelay(1000/portTICK_PERIOD_MS);
     Serial.print("High water mark for reading: ");
     Serial.println(uxTaskGetStackHighWaterMark(NULL));
+    //Serial.println(counter); Debug Code
   }
 }
 

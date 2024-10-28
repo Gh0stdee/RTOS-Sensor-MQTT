@@ -11,7 +11,7 @@ pinMode(sensPin, INPUT);
 
 //set address of server to be connected by client [3:Path of Connection between server and client]
 client.setServer(mqtt_server, 1883);
-client.setBufferSize(1024);  
+//client.setBufferSize(1024);  
 
 //checking WiFi connection
 while (WiFi.status() != WL_CONNECTED) 
