@@ -32,6 +32,6 @@ void loop() {
   //connect client to MQTT
   if (!client.connected())
     reconnect();
-  vTaskResume(NULL);
+  vTaskDelete(NULL);
 }
 
