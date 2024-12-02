@@ -1,6 +1,5 @@
 #include <PubSubClient.h>
 #include <WiFi.h>
-#include "variables.h"
 
 //set mqtt server address to IP address 
 #define mqtt_server "192.168.68.101"
@@ -42,7 +41,7 @@ void serverSetUp()
   client.setServer(mqtt_server, 1883);
   //client.setBufferSize(1024);  
 
-  //WiFi and NTP server connection
+  //WiFi connection
   WiFi.begin(SSID, passwd);
   Serial.print("Connecting to WiFi...");
   while (WiFi.status() != WL_CONNECTED) 
@@ -52,5 +51,4 @@ void serverSetUp()
     } 
   Serial.println("");
   Serial.println("Connected to WiFi.");
-  configTime(gmtOffset_sec,daylightOffset_sec,ntpServer);
 }

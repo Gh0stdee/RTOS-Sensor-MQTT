@@ -14,10 +14,9 @@ void readSensor(void* parameter)
   {
     //SD
     light =  analogRead(sensPin);
+    memoryCheck();
     dataMessage = getTimestamp() + " " + String(light) + "\r\n";
     appendFile(SD,"/lightData.txt",dataMessage.c_str());
-
-    
 
     vTaskDelay(1000/portTICK_PERIOD_MS);
     Serial.print("High water mark for reading: ");

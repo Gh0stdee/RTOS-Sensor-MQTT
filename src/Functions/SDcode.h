@@ -2,8 +2,13 @@
 #include <SD.h>
 #include <SPI.h>
 #include "time.h"
+#include "pinout.h"
+#include "ArduinoJson.h"
+
+int size_1mb = 1048576;
 
 String dataMessage;
+DynamicJsonDocument doc (2*size_1mb); 
 
 String getTimestamp()
 {
@@ -58,3 +63,35 @@ void appendFile(fs::FS &fs, const char* path, const char* message)
     data.close();
 }
 
+void deleteFile(fs::FS &fs, const char* path)
+{
+    if(fs.remove(path))
+    {
+        Serial.println("File deleted.");
+    }
+    else
+    {
+        Serial.println("Failed to delete file.");
+    }
+}
+
+void memoryCheck()
+{
+  if (doc.memoryusage()> size_1mb)
+  {
+    Serial.println("Exceeded 1mb");
+    doc.clear();
+    deleteFile(SD, "/lightData.txt");
+    newFileCreate();
+  }
+}
+
+void SDinit()
+{
+  SPI.begin(Sck,Miso,Mosi,csPin); //SCK,MISO,MOSI,cs pins
+  while (!SD.begin(csPin))                                       
+  {
+    Serial.println("Error occurred at SD begin");
+    delay(1000);
+  }
+}

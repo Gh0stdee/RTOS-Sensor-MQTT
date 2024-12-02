@@ -1,11 +1,5 @@
 #include <Arduino.h>
-
-#define wakePin 32
-
-bool espState = false;    //set ESP to be Off for default
-int darkness;
-bool voltageWake;         //Touch pin voltage 
-int voltageWake_count;
+#include "variables.h"
 
 //indicate wake up state        
 void blink()                                           
