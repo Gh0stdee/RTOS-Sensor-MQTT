@@ -4,7 +4,7 @@ const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 8*3600;   //UTC +- n -> 3600*n
 const int   daylightOffset_sec = 0; //No datelight saving
 
-/photoresistor module
+//photoresistor module
 int light;
 
 //deep sleep

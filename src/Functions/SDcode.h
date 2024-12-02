@@ -77,7 +77,7 @@ void deleteFile(fs::FS &fs, const char* path)
 
 void memoryCheck()
 {
-  if (doc.memoryusage()> size_1mb)
+  if (doc.memoryUsage()> size_1mb)
   {
     Serial.println("Exceeded 1mb");
     doc.clear();
