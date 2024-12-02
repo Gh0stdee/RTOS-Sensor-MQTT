@@ -2,7 +2,7 @@
 #include <WiFi.h>
 
 //set mqtt server address to IP address 
-#define mqtt_server "192.168.68.101"
+#define mqtt_server "192.168.68.102"
 
 //define topic for publishing message to mqtt server
 #define topic "sensor/photoresistor"
@@ -51,4 +51,5 @@ void serverSetUp()
     } 
   Serial.println("");
   Serial.println("Connected to WiFi.");
+  delay(1000);
 }

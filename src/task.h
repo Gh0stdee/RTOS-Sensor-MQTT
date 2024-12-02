@@ -33,7 +33,7 @@ void publishReading(void* parameter)
   while(1)
   {
     client.loop();
-    client.publish(topic, String(darkness).c_str());
+    client.publish(topic, String(light).c_str());
     vTaskDelay(1000/portTICK_PERIOD_MS);
     Serial.print("High water mark for publish: ");
     Serial.println(uxTaskGetStackHighWaterMark(NULL));

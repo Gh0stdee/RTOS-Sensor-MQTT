@@ -3,7 +3,8 @@
 #include <SPI.h>
 #include "time.h"
 #include "pinout.h"
-#include "ArduinoJson.h"
+#include <ArduinoJson.h>
+#include <Arduino.h>
 
 int size_1mb = 1048576;
 
@@ -21,18 +22,6 @@ String getTimestamp()
   return timeStamp;
 }
 
-//create file if file doesn't exist
-void newFileCreate()
-{
-  File file = SD.open("/lightData.txt");                     //create a file on SD card and open the file
-  if(!file)
-  {
-    writeFile(SD,"/lightData.txt","Timestamp            Light \r\n"); // \r\n means go to next line in the file
-    Serial.println("Creating file...");
-    file.close();                                      //close the file
-  }
-}
-
 void writeFile(fs::FS &fs, const char* path, const char* message)
 {
     Serial.println("Writing file.....");
@@ -46,6 +35,18 @@ void writeFile(fs::FS &fs, const char* path, const char* message)
         Serial.println("Writing failed.");
     }
     data.close();
+}
+
+//create file if file doesn't exist
+void newFileCreate()
+{
+  File file = SD.open("/lightData.txt");                     //create a file on SD card and open the file
+  if(!file)
+  {
+    writeFile(SD,"/lightData.txt","Timestamp           Light \r\n"); // \r\n means go to next line in the file
+    Serial.println("Creating file...");
+    file.close();                                      //close the file
+  }
 }
 
 void appendFile(fs::FS &fs, const char* path, const char* message)

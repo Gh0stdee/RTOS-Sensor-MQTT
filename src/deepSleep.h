@@ -28,33 +28,31 @@ void powerUp()
 }
 
 void lightCheck()
-{
-    if (voltageWake && !espState)
+{   
+  voltageWake = digitalRead(wakePin);
+  if (voltageWake && !espState)
+  {
+    if (voltageWake_count == 1) 
     {
-        if (voltageWake_count == 1) 
-        {
-        blink(); 
-        espState = true;
-        voltageWake_count +=1;
-        }
-        else
-        {
-            //nothing happens
-        }
-    }
+      blink(); 
+      espState = true;
+      voltageWake_count +=1;
+      }
+    
+  }
 
-    else if (darkness > 11)                             
+  else if (darkness > 11)                             
+  {
+    if(voltageWake)
     {
-        if(voltageWake)
-        {
-        Serial.println("Please turn on the lights.");
-        }
-        else
-        powerDown();
+      Serial.println("Please turn on the lights.");
+    }
+    else
+      powerDown();
     }
     
-    else if (darkness < 11 && !espState) 
-    {
-        powerUp();
-    }
+  else if (darkness < 11 && !espState) 
+  {
+    powerUp();
+  }
 }
