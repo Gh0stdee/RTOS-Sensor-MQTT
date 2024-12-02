@@ -1,7 +1,3 @@
-#include "mqtt_wifi.h"
-//SD
-String dataMessage;
-
 //local time
 //https://lastminuteengineers.com/esp32-ntp-server-date-time-tutorial/
 const char* ntpServer = "pool.ntp.org";

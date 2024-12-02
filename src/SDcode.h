@@ -1,17 +1,31 @@
 #include <FS.h>
 #include <SD.h>
 #include <SPI.h>
+#include "time.h"
 
-void deleteFile(fs::FS &fs, const char* path)
+String dataMessage;
+
+String getTimestamp()
 {
-    if(fs.remove(path))
-    {
-        Serial.println("File deleted.");
-    }
-    else
-    {
-        Serial.println("Failed to delete file.");
-    }
+  struct tm timeInfo;
+  if (!getLocalTime(&timeInfo))
+    Serial.println("Failed to obtain local time");
+  char Timeformat[50];                   //char array/string for storing the formatted date
+  strftime(Timeformat, 50, "%d-%m-%G %T", &timeInfo);  //strfttime formatting
+  String timeStamp = Timeformat;
+  return timeStamp;
+}
+
+//create file if file doesn't exist
+void newFileCreate()
+{
+  File file = SD.open("/lightData.txt");                     //create a file on SD card and open the file
+  if(!file)
+  {
+    writeFile(SD,"/lightData.txt","Timestamp            Light \r\n"); // \r\n means go to next line in the file
+    Serial.println("Creating file...");
+    file.close();                                      //close the file
+  }
 }
 
 void writeFile(fs::FS &fs, const char* path, const char* message)

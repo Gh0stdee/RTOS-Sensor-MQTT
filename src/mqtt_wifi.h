@@ -1,5 +1,6 @@
 #include <PubSubClient.h>
 #include <WiFi.h>
+#include "variables.h"
 
 //set mqtt server address to IP address [1:Server]
 #define mqtt_server "192.168.68.101"
@@ -11,7 +12,7 @@
 const char* SSID = "ilfandkym";
 const char* passwd = "94263770";
 
-//set up client [2:Client]
+//set up client 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -32,4 +33,24 @@ void reconnect()
     }
 
   }
+}
+
+//WiFi, NTP & MQTT server set-up
+void serverSetUp() 
+{
+  //set address of MQTT server
+  client.setServer(mqtt_server, 1883);
+  //client.setBufferSize(1024);  
+
+  //WiFi and NTP server connection
+  WiFi.begin(SSID, passwd);
+  Serial.print("Connecting to WiFi...");
+  while (WiFi.status() != WL_CONNECTED) 
+    {
+    Serial.print(".");
+    delay(500);
+    } 
+  Serial.println("");
+  Serial.println("Connected to WiFi.");
+  configTime(gmtOffset_sec,daylightOffset_sec,ntpServer);
 }
