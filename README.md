@@ -1,8 +1,8 @@
-# Repo for Reading sensor data and Publishing the Data to MQTT Server
+# Repo for Integration of Functions
 
-## Master branch
-No resume or suspend is used
+## Functions
 
-## Test branch
-Resume and suspend are used
-Found out the reset problem was caused by resume in an if-statement
+1. Sleep Mode
+2. MQTT
+3. MicroSD
+4. RTOS
