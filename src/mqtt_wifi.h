@@ -2,7 +2,7 @@
 #include <WiFi.h>
 #include "variables.h"
 
-//set mqtt server address to IP address [1:Server]
+//set mqtt server address to IP address 
 #define mqtt_server "192.168.68.101"
 
 //define topic for publishing message to mqtt server

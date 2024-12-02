@@ -6,8 +6,8 @@ const int   daylightOffset_sec = 0; //No datelight saving
 
 //Photoresistor Module
 int sensPin = 34;
-int darkness;
+int light;
 
 //timer
-int detectGap = 10;
-int usFactor = 60000000;
+int detectGap = 10; //minutes
+int usFactor = 60000000; //us to minutes

@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "RTOS.h"
 #include "task.h"
 
@@ -20,9 +19,14 @@ vTaskSuspend(reading);
 xTaskCreatePinnedToCore(publishReading, "Publish", 4096, NULL, 1, &publish,0);
 vTaskSuspend(publish);
 
-//timer for deep sleep mode exit check 
-esp_sleep_enable_timer_wakeup(detectGap * usFactor);
+//Deep Sleep Mode
+//Pin Voltage
+esp_sleep_enable_ext0_wakeup((gpio_num_t)wakePin,1);  //wake up ESP32 when reading on wakePin is high
+voltageWake = digitalRead(wakePin);
+voltageWake_count = 1;
 
+//Timer
+esp_sleep_enable_timer_wakeup(detectGap * usFactor);
 }
 
 void loop() {

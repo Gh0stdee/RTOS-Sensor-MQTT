@@ -1,5 +1,6 @@
 #include "SDcode.h"
 #include "mqtt_wifi.h"
+#include "deepSleep.h"
 
 //set up task handler
 TaskHandle_t reading;
@@ -11,18 +12,20 @@ void readSensor(void* parameter)
 {
   while(1)
   {
-    darkness =  analogRead(sensPin);
-
-
+    //SD
+    light =  analogRead(sensPin);
+    dataMessage = getTimestamp() + " " + String(light) + "\r\n";
+    appendFile(SD,"/lightData.txt",dataMessage.c_str());
 
     
-    //get timestamp and store value
-    dataMessage = getTimestamp() + " " + String(darkness) + "\r\n";
-    //append message to SD card
-    appendFile(SD,"/lightData.txt",dataMessage.c_str());
+
     vTaskDelay(1000/portTICK_PERIOD_MS);
     Serial.print("High water mark for reading: ");
     Serial.println(uxTaskGetStackHighWaterMark(NULL));
+
+    //Deep Sleep
+    darkness = map(light, 0, 4095, 0, 15);
+    lightCheck();
   }
 }
 
